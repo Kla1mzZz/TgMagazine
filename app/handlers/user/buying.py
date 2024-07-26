@@ -22,8 +22,7 @@ async def buy(callback: CallbackQuery):
     data = callback.data.split('_')
     print(data)
 
-    await callback.message.edit_caption(data[2], 'Select size')
-    await callback.message.edit_reply_markup(data[2], reply_markup=buying_kb.select_size(data[1], data[2]))
+    await callback.message.edit_caption(inline_message_id=data[2],  caption='Select size', reply_markup=buying_kb.select_size(data[1], data[2]))
 
 @router.callback_query(F.data.startswith('id_'))
 async def select_size(callback: CallbackQuery):
@@ -31,7 +30,7 @@ async def select_size(callback: CallbackQuery):
 
     item = orm.get_item_for_id(data[1])
 
-    await callback.message.edit_caption(data[3], f'Your order\nBrand: {item.brand}\nModel: {item.modelName}\nSize: {data[2]}\nPrice: <b>{item.price}$</b>'
+    await callback.message.edit_caption(inline_message_id=data[3], caption=f'Your order\nBrand: {item.brand}\nModel: {item.modelName}\nSize: {data[2]}\nPrice: <b>{item.price}$</b>'
                                             ,reply_markup=buying_kb.order(data[1],data[2]), parse_mode='HTML')
 
 @router.callback_query(F.data.startswith('order_'))
@@ -80,7 +79,7 @@ async def verefication_pay(callback: CallbackQuery):
     order = orm.get_verefication_order(user_id)
 
     for id in settings.getAdminIds():
-        await callback.message.bot.send_message(id, f'Мамонт хочет проверить оплату {order.username}',reply_markup=admin_kb.verefication_payment(user_id))
+        await callback.message.bot.send_message(id, f'Пользователь хочет проверить оплату {order.username}',reply_markup=admin_kb.verification_payment(user_id))
 
 @router.callback_query(F.data.startswith('confirm_'))
 async def confirm_pay(callback: CallbackQuery):
