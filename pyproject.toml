@@ -7,6 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+aiogram = "^3.10.0"
+sqlalchemy = "^2.0.31"
+paypalrestsdk = "^1.13.3"
 
 
 [build-system]
