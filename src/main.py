@@ -3,9 +3,9 @@ from aiogram import Bot, Dispatcher
 
 from dotenv import dotenv_values
 
-from app.handlers import commands
-from app.handlers.user import catalog, aboutUs, buying, contacts, orders
-from app.handlers.admin import admin_panel
+from src.handlers import commands
+from src.handlers.user import catalog, aboutUs, buying, contacts, orders
+from src.handlers.admin import admin_panel
 
 import logging
 
